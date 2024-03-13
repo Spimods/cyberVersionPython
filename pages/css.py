@@ -33,12 +33,12 @@ background-color: #000309;
 
 @font-face {
 font-family: "PhelixBoomgartner";
-src: url("../fonts/PhelixBoomgartner.otf") format("opentype")
+src: url("https://ozanam-cyberquest.fr/fonts/PhelixBoomgartner.otf") format("opentype")
 }
 
 @font-face {
 font-family: "DoctorGlitch";
-src: url("../fonts/Doctor\ Glitch.otf") format("opentype")
+src: url("https://ozanam-cyberquest.fr/fonts/Doctor\ Glitch.otf") format("opentype")
 }
 
 * {
@@ -85,7 +85,7 @@ transition-timing-function: ease;
 }
 
 #main {
-background-image: url(../images/bg.png); 
+background-image: url(https://ozanam-cyberquest.fr/images/bg.png); 
 background-position: right;
 background-size: cover;
 background-repeat: no-repeat;
@@ -424,7 +424,7 @@ top: calc(-1 * var(--gap-vertical));
 left: calc(-1 * var(--gap-horizontal));
 width: calc(100% + var(--gap-horizontal) * 2);
 height: calc(100% + var(--gap-vertical) * 2);
-background: url(../images/bg.png);
+background: url(https://ozanam-cyberquest.fr/images/bg.png);
 transform: translate3d(0, 0, 0);
 background-blend-mode: var(--blend-mode-1);
 background-position: right;
@@ -434,11 +434,11 @@ background-position-x: 350px;
 }
 
 .glitch__img_login {
-background: url(../images/bg--world.png)!important;
+background: url(https://ozanam-cyberquest.fr/images/bg--world.png)!important;
 }
 
 .glitch__img_404 {
-background: url(../images/404.gif)!important;
+background: url(https://ozanam-cyberquest.fr/images/404.gif)!important;
 background-repeat: no-repeat!important;
 background-size: contain!important;
 background-position: center!important;
@@ -446,7 +446,7 @@ background-position: center!important;
 
 .glitch__img_leaderboard {
 position: fixed!important;
-background: url(../images/bg--world.png)!important;
+background: url(https://ozanam-cyberquest.fr/images/bg--world.png)!important;
 }
 
 .glitch__img_register {
@@ -820,7 +820,7 @@ border-radius: 1em;
 .box1{
 text-align: center;
 left: 10%;
-background-image: url(../images/python.png);
+background-image: url(https://ozanam-cyberquest.fr/images/python.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(50%);
@@ -829,7 +829,7 @@ cursor: pointer;
 .box1end {
 text-align: center;
 left: 10%;
-background-image: url(../images/python.png);
+background-image: url(https://ozanam-cyberquest.fr/images/python.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(100%);
@@ -838,7 +838,7 @@ filter: grayscale(100%);
 .box2{
 text-align: center;
 left: 40%;
-background-image: url(../images/progr.png);
+background-image: url(https://ozanam-cyberquest.fr/images/progr.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(50%);
@@ -847,7 +847,7 @@ cursor: pointer;
 .box2end {
 text-align: center;
 left: 40%;
-background-image: url(../images/progr.png);
+background-image: url(https://ozanam-cyberquest.fr/images/progr.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(100%);
@@ -856,7 +856,7 @@ filter: grayscale(100%);
 .box3{
 text-align: center;
 left: 70%;
-background-image: url(../images/question.png);
+background-image: url(https://ozanam-cyberquest.fr/images/question.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(50%);
@@ -865,7 +865,7 @@ cursor: pointer;
 .box3end {
 text-align: center;
 left: 70%;
-background-image: url(../images/question.png);
+background-image: url(https://ozanam-cyberquest.fr/images/question.png);
 background-position: center;
 background-size: cover;
 filter: grayscale(100%);
@@ -9564,7 +9564,7 @@ a.text-dark:hover, a.text-dark:focus {
     font-size: 3.5rem; } }
 
 body {
-  background-image: url("../images/ng-background-dot.png"); }
+  background-image: url("https://ozanam-cyberquest.fr/images/ng-background-dot.png"); }
 
 .btn-shadow {
   margin-left: 8px; }
@@ -21604,7 +21604,7 @@ a.text-dark:hover {
 
 
 /* body {
-    background-image: url(../images/ng-background-dot.png)
+    background-image: url(https://ozanam-cyberquest.fr/images/ng-background-dot.png)
 } */
 
 .btn-shadow {
@@ -22476,7 +22476,7 @@ body {
     left: calc(-1 * var(--gap-horizontal));
     width: calc(100% + var(--gap-horizontal) * 2);
     height: calc(100% + var(--gap-vertical) * 2);
-    background: url(../images/bg.png);
+    background: url(https://ozanam-cyberquest.fr/images/bg.png);
     background-color: #000000;
     background-position: right;
     background-size: cover;
@@ -23021,22 +23021,22 @@ body {
 def generate_prog_css():
     return """
 .box1 {
-    background-image: url(../images/proglv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv1.png);
 }
 .box1end {
-    background-image: url(../images/proglv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv1.png);
 }
 .box2 {
-    background-image: url(../images/proglv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv2.png);
 }
 .box2end {
-    background-image: url(../images/proglv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv2.png);
 }
 .box3 {
-    background-image: url(../images/proglv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv3.png);
 }
 .box3end {
-    background-image: url(../images/proglv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/proglv3.png);
 }
 .text{
     color: white;
@@ -23050,22 +23050,22 @@ def generate_prog_css():
 def generate_python_css():
     return """
 .box1 {
-    background-image: url(../images/pythonlv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv1.png);
 }
 .box1end {
-    background-image: url(../images/pythonlv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv1.png);
 }
 .box2 {
-    background-image: url(../images/pythonlv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv2.png);
 }
 .box2end {
-    background-image: url(../images/pythonlv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv2.png);
 }
 .box3 {
-    background-image: url(../images/pythonlv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv3.png);
 }
 .box3end {
-    background-image: url(../images/pythonlv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/pythonlv3.png);
 }
 .text{
     color: white;
@@ -23079,22 +23079,22 @@ def generate_python_css():
 def generate_reseaux_css():
     return """
 .box1 {
-    background-image: url(../images/reseauxlv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv1.png);
 }
 .box1end {
-    background-image: url(../images/reseauxlv1.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv1.png);
 }
 .box2 {
-    background-image: url(../images/reseauxlv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv2.png);
 }
 .box2end {
-    background-image: url(../images/reseauxlv2.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv2.png);
 }
 .box3 {
-    background-image: url(../images/reseauxlv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv3.png);
 }
 .box3end {
-    background-image: url(../images/reseauxlv3.png);
+    background-image: url(https://ozanam-cyberquest.fr/images/reseauxlv3.png);
 }
 .text{
     color: white;

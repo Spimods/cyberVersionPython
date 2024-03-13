@@ -16769,3 +16769,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 """
+
+def scriptjs():
+    return """
+    window.onload = function() {
+        var saved = getCookie("editor");
+        if (saved) {
+            editor.setValue(decodeURIComponent(saved), 1);
+        }
+    }
+    function redirect(){
+        window.location.href = "save.php?code=" + encodeURIComponent(ace.edit("editor").getValue());
+    }
+    function restart(){
+        editor.setValue(decodeURIComponent(`# Demander à l'utilisateur de saisir un nombre
+nombre = int(input("Entrez un nombre : "))
+`), 1);
+
+    }
+
+    function saveEditor() {
+        var editor = ace.edit("editor").getValue();
+        document.cookie = "editor=" + encodeURIComponent(editor);
+    }
+
+    function getCookie(name) {
+        var cookieArray = document.cookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i].trim();
+            if (cookie.indexOf(name + "=") === 0) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
+    document.getElementById("validButton").style.display = "none";
+
+    document.getElementById("svgun").style.display = "none";
+    document.getElementById("svgdeux").style.display = "none";
+    document.getElementById("svgtrois").style.display = "none";
+
+    document.getElementById("verification").style.color = "#a30000";
+
+    document.getElementById("svgunno").style.display = "initial";
+    document.getElementById("svgdeuxno").style.display = "initial";
+    document.getElementById("svgtroisno").style.display = "initial";
+"""
