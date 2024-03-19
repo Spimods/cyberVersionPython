@@ -279,7 +279,209 @@ class RequestHandler(BaseHTTPRequestHandler):
             html_content = save.save2(query_params, cookie_dict)
             self.wfile.write(html_content.encode('utf-8'))
 
-
+        elif self.path.startswith('/save3'):
+            print("Chemin correspondant à /save3:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save3(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save4'):
+            print("Chemin correspondant à /save4:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save4(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save5'):
+            print("Chemin correspondant à /save5:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save5(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save6'):
+            print("Chemin correspondant à /save6:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save6(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save7'):
+            print("Chemin correspondant à /save7:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save7(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save8'):
+            print("Chemin correspondant à /save8:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save8(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+        elif self.path.startswith('/save9'):
+            print("Chemin correspondant à /save9:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save9(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/starttime1'):
             print("Chemin correspondant à /starttime1:", "http://localhost:8000" + self.path)
