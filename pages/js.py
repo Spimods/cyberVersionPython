@@ -16421,9 +16421,10 @@ window.addEventListener("blur", function () {
 
 document.addEventListener('DOMContentLoaded', function() {
   var nom = window.location.pathname;
-  nom = nom.split("/");
-  nom = nom[nom.length - 1];
-  nom = nom.substr(0, nom.lastIndexOf("."));
+  console.log(nom)
+  nom = nom.replace('/', '');
+  nom.replace(',', '');
+    console.log(nom)
   nom = nom.replace(new RegExp("(%20|_|-)", "g"), "");
 
   const progressBar = document.getElementById('progress');
@@ -16431,7 +16432,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const totalTime = 15 * 60;
   let currentTime = getSavedTime() || 0;
   let currentPage = sessionStorage.getItem('currentPage') || window.location.href;
-
+  
   const updateProgressBar = () => {
     const progressPercentage = (currentTime / totalTime) * 100;
     progressBar.style.width = `${progressPercentage}%`;
@@ -16468,9 +16469,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setInterval(incrementTime, 1000);
 
-  function saveTime() {
+function saveTime() {
     document.cookie = `lastTimer${nom}=${currentTime}; expires=Sun, 31 Dec 2034 12:00:00 UTC; path=/`;
-  }
+}
 
   function getSavedTime() {
     const cookieValue = document.cookie

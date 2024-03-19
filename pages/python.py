@@ -3,15 +3,6 @@ import mysql.connector
 import re
 import http.cookies
 
-def parseTime(timeString):
-    match = re.match(r'(\d+)h (\d+)min (\d+)sec', timeString)
-    if match:
-        hours = int(match.group(1))
-        minutes = int(match.group(2))
-        seconds = int(match.group(3))
-        return hours * 3600 + minutes * 60 + seconds
-    return 0
-
 def totalTime(times):
     totalSeconds = sum(parseTime(time) for time in times if time is not None)
     hours = totalSeconds // 3600
@@ -60,9 +51,10 @@ def home(cookie):
         part3 = 1
     print(f'valeur des points : {part1calc}, {part2calc}, {part3calc}')
 
-    times = [int(time1), int(time2), int(time3), int(time4), int(time5), int(time6), int(time7)]
+    #times = [int(time1), int(time2), int(time3), int(time4), int(time5), int(time6), int(time7)]
+    times = 12
     print(times)
-    total_time = totalTime(times)
+    total_time = 12#totalTime(times)
     print("Total time:", total_time)
     total_point = part1calc + part2calc + part3calc
 
@@ -126,8 +118,8 @@ def home(cookie):
     </div>
 <br>
 <div class={'box1end' if part1 != 0 else 'box1'} {'' if part1 != 0 else "onclick='location.href=`tuto`"};' ><span class='text'>Débutant</span></div>
-<div class={'box2end' if part2 != 0 else 'box2'}  {'' if part1 != 0 else "onclick='location.href=`starttime4`"};' ><span class='text'>Intermédiaire</span></div>
-<div class={'box3end' if part3 != 0 else 'box3'}  {'' if part1 != 0 else "onclick='location.href=`starttime7`"};' ><span class='text'>Maître</span></div>
+<div class={'box2end' if part2 != 0 else 'box2'}  {'' if part2 != 0 else "onclick='location.href=`starttime4`"};' ><span class='text'>Intermédiaire</span></div>
+<div class={'box3end' if part3 != 0 else 'box3'}  {'' if part3 != 0 else "onclick='location.href=`starttime7`"};' ><span class='text'>Maître</span></div>
 </body>
 </html>
 """

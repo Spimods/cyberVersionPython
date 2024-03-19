@@ -2,22 +2,33 @@ from flask import Flask, render_template, request, redirect, session
 import mysql.connector
 import re
 import http.cookies
+import datetime
 
-def parseTime(timeString):
-    match = re.match(r'(\d+)h (\d+)min (\d+)sec', timeString)
-    if match:
-        hours = int(match.group(1))
-        minutes = int(match.group(2))
-        seconds = int(match.group(3))
-        return hours * 3600 + minutes * 60 + seconds
-    return 0
 
-def totalTime(times):
-    totalSeconds = sum(parseTime(time) for time in times if time is not None)
-    hours = totalSeconds // 3600
-    minutes = (totalSeconds % 3600) // 60
-    seconds = totalSeconds % 60
-    return f"{hours:02d}h {minutes:02d}min {seconds:02d}sec"
+def totalTime(time_strings):
+    total_seconds = 0
+    for time_str in time_strings:
+        time_components = time_str.replace(' ', '').split('h')  # Supprimer les espaces et séparer les heures
+        if len(time_components) == 1:  # Si la séparation n'a pas fonctionné, cela signifie qu'il n'y a pas d'heures
+            h = 0
+            if 'min' in time_components[0]:
+                m, s = map(int, time_components[0].replace('min', ':').replace('sec', '').split(':'))
+            else:
+                m, s = 0, 0
+        else:
+            h, rest = time_components
+            if 'min' in rest:
+                m, s = map(int, rest.replace('min', ':').replace('sec', '').split(':'))
+            else:
+                m, s = 0, 0
+            h = int(h)
+        total_seconds += datetime.timedelta(hours=h, minutes=m, seconds=s).total_seconds()
+    total_seconds = int(total_seconds)
+    hours = total_seconds // 3600
+    total_seconds %= 3600
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    return f"{hours}h{minutes}min{seconds}sec"
 
 def parseTime(timeString):
     if isinstance(timeString, str):
@@ -48,18 +59,21 @@ def home(query_params, cookie):
     finish = cursor.fetchone()#[0]
     print("Finish:", finish)
 
-    cursor.execute("SELECT flag1, flag2, flag3, nom, time_flag_1, time_flag_2 ,time_flag_3 FROM python WHERE cookie = %s", (cookie, ))
-    flag1, flag2, flag3, nom, time1, time2, time3 = cursor.fetchone()
-    print("Python flags and times:", flag1, flag2, flag3, nom, time1, time2, time3)
+    cursor.execute("SELECT flag1, flag2, flag3, nom FROM python WHERE cookie = %s", (cookie, ))
+    flag1, flag2, flag3, nom = cursor.fetchone()
+    print("Python flags and times:", flag1, flag2, flag3, nom)
+    cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9 FROM timepython WHERE cookie = %s", (cookie, ))
+    time1, time2, time3, time4, time5, time6, time7, time8, time9 = cursor.fetchone()
+    print("Python flags and times:", time1, time2, time3, time4, time5, time6, time7, time8, time9)
 
     flag4 = flag5 = flag6 = flag7 = 1
-    time4 = time5 = time6 = time7 = 1
     connection.close()
 
     part1 = 1 if (flag1 == 1 and flag2 == 1 and flag3 == 1) else 0
     part2 = 1 if (flag4 == 1 and flag5 == 1 and flag6 == 1) else 0
     part3 = 1 if flag7 == 1 else 0
-    times = [int(time1), int(time2), int(time3), int(time4), int(time5), int(time6), int(time7)]
+    times = [time1, time2, time3, time4, time5, time6, time7, time8, time9]
+    times = [time_str if time_str and time_str != '0' else '0h0min0sec' for time_str in times]
     print(times)
     total_time = totalTime(times)
     print("Total time:", total_time)

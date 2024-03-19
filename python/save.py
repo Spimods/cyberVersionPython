@@ -1865,6 +1865,7 @@ def save9(query_params, cookie):
                         justify-content: center;
                         height: 100vh;
                     }
+
                     .container {
                         background-color: #fff;
                         border-radius: 8px;
@@ -1872,18 +1873,22 @@ def save9(query_params, cookie):
                         padding: 20px;
                         text-align: center;
                         width:500px;
-                        z-index: 2;
+                        z-index:2;
+
                     }
+
                     .note {
                         font-size: 50px;
                         font-weight: bold;
                         color: #b90012;
                         margin-bottom: 30px;
                     }
+
                     .details {
                         margin-top: 20px;
                         color: #333;
                     }
+
                     .progress-bar {
                         position: relative;
                         left: 50%;
@@ -1927,207 +1932,214 @@ def save9(query_params, cookie):
                         font-size: 16px;
                         margin-top: 20px;
                     }
+
                     .button:hover {
                         background-color: #780105;
                     }
-        #confetti-canvas {
-            position: fixed; 
-            z-index: 3; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; 
-            pointer-events: none;
-        }
+                    .svgfleche{
+                        fill: #fff;
+                        width: 25px;
+                        margin-bottom: -6.7px;
+                    }
+
+                    #confetti-canvas {
+                        position: fixed; 
+                        z-index: 3; 
+                        top: 0; 
+                        left: 0; 
+                        width: 100vw; 
+                        height: 100vh; 
+                        pointer-events: none;
+                    }
 
 
 
-        .content {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            display : none;
-        }
+                    .content {
+                        width: 100%;
+                        height: 100vh;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: #fff;
+                        display : none;
+                    }
 
-        .content__coins {
-            z-index: 5;
-            position: relative;
-            width: 160px;
-            height: 160px;
-            animation-timing-function: ease-in-out;
-            animation-duration: 2s;
-            animation-fill-mode: forwards;
-            animation-name: initial-animation; 
-        }
+                    .content__coins {
+                        z-index: 5;
+                        position: relative;
+                        width: 160px;
+                        height: 160px;
+                        animation-timing-function: ease-in-out;
+                        animation-duration: 2s;
+                        animation-fill-mode: forwards;
+                        animation-name: initial-animation; 
+                    }
 
-        .currency-soft-3d {
-            position: absolute;
-            width: 160px;
-            height: 160px;
-            transform: rotateY(0deg);
-            transform-origin: center center;
-            transform-style: preserve-3d;
-        }
+                    .currency-soft-3d {
+                        position: absolute;
+                        width: 160px;
+                        height: 160px;
+                        transform: rotateY(0deg);
+                        transform-origin: center center;
+                        transform-style: preserve-3d;
+                    }
 
-        @keyframes initial-animation {
-            0% {
-                transform: translateY(-600px); 
-            }
-            100% {
-                transform: translateY(0); 
-            }
-        }
+                    @keyframes initial-animation {
+                        0% {
+                            transform: translateY(-600px); 
+                        }
+                        100% {
+                            transform: translateY(0); 
+                        }
+                    }
 
-        .currency-soft-3d_state_left {
-            animation-name: coins-item-left-animation;
-        }
+                    .currency-soft-3d_state_left {
+                        animation-name: coins-item-left-animation;
+                    }
 
-        .currency-soft-3d_state_half_left {
-            animation-name: coins-item-half-left-animation;
-        }
+                    .currency-soft-3d_state_half_left {
+                        animation-name: coins-item-half-left-animation;
+                    }
 
-        .currency-soft-3d::before {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            top: 0;
-            left: 50%;
-            width: 20px;
-            height: 100%;
-            margin-left: -10px;
-            transform: rotateY(-90deg);
-            transform-origin: 100% 50%;
-            background-color: #FD002E;
-            border-radius: 2px;
-        }
+                    .currency-soft-3d::before {
+                        content: "";
+                        position: absolute;
+                        z-index: 1;
+                        top: 0;
+                        left: 50%;
+                        width: 20px;
+                        height: 100%;
+                        margin-left: -10px;
+                        transform: rotateY(-90deg);
+                        transform-origin: 100% 50%;
+                        background-color: #FD002E;
+                        border-radius: 2px;
+                    }
 
-        .currency-soft-3d__front_inside {
-            position: absolute;
-            z-index: -1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #FD002E;
-            transform: translateZ(-1px);
-        }
+                    .currency-soft-3d__front_inside {
+                        position: absolute;
+                        z-index: -1;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        background-color: #FD002E;
+                        transform: translateZ(-1px);
+                    }
 
-        .currency-soft-3d__front {
-            position: absolute;
-            z-index: 2;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: translateZ(0);
-            border-radius: 50%;
-            background-color: #FD002E;
-            background-image: url('../images/piecepython1.png');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: 108%;
-        }
-        .end {
-            animation-timing-function: ease-in-out;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            animation-name: end-animation; 
-        }
-        @keyframes end-animation {
-            0% {
-                transform: translateY(0); 
-            }
-            100% {
-                transform: translateY(600px); 
-            }
-        }
+                    .currency-soft-3d__front {
+                        position: absolute;
+                        z-index: 2;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        transform: translateZ(0);
+                        border-radius: 50%;
+                        background-color: #FD002E;
+                        background-image: url('../images/piecepython1.png');
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 108%;
+                    }
+                    .end {
+                        animation-timing-function: ease-in-out;
+                        animation-duration: 1s;
+                        animation-fill-mode: forwards;
+                        animation-name: end-animation; 
+                    }
+                    @keyframes end-animation {
+                        0% {
+                            transform: translateY(0); 
+                        }
+                        100% {
+                            transform: translateY(600px); 
+                        }
+                    }
 
-        .currency-soft-3d__back {
-            position: absolute;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: rotateY(180deg) translateZ(20px);
-            border-radius: 50%;
-            background-color: #FD002E;
-            background-image: url('../images/piecepython1.png');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: 108%;
-        }
-        .message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            z-index: 2;
-            display: none;
-        }
+                    .currency-soft-3d__back {
+                        position: absolute;
+                        z-index: 1;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        transform: rotateY(180deg) translateZ(20px);
+                        border-radius: 50%;
+                        background-color: #FD002E;
+                        background-image: url('../images/piecepython1.png');
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 108%;
+                    }
+                    .message {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.7);
+                        color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 24px;
+                        z-index: 2;
+                        display: none;
+                    }
 
-        .currency-soft-3d__back_inside {
-            position: absolute;
-            z-index: -2;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: translateZ(-19px);
-            border-radius: 50%;
-            background-color: #FD002E;
-        }
+                    .currency-soft-3d__back_inside {
+                        position: absolute;
+                        z-index: -2;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        transform: translateZ(-19px);
+                        border-radius: 50%;
+                        background-color: #FD002E;
+                    }
 
-        body {
-            overflow: hidden;
-            margin: 0;
-        }
+                    body {
+                        overflow: hidden;
+                        margin: 0;
+                    }
 
-        *::selection {
-            background-color: #b6000065; 
-            color: #fff; 
-        }
+                    *::selection {
+                        background-color: #b6000065; 
+                        color: #fff; 
+                    }
 
-        *::-moz-selection {
-            background-color: #b6000065; 
-            color: #fff; 
-        }
+                    *::-moz-selection {
+                        background-color: #b6000065; 
+                        color: #fff; 
+                    }
 
-        *::-webkit-selection {
-            background-color: #b6000065; 
-            color: #fff;
-        }
-        .texte-fondu {
-            display: none;
-            color: #fff;
-            opacity: 0; 
-            transition: opacity 1s ease-in-out;
-        }
-        .fin{
-            display: none;
-            display: block;
-            text-decoration: none;
-            color: #a90000;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            cursor: default;
-        }
-        .texte-visible {
-            text-align: center;
-            display: block;
-            opacity: 1; 
-        }
+                    *::-webkit-selection {
+                        background-color: #b6000065; 
+                        color: #fff;
+                    }
+                    .texte-fondu {
+                        display: none;
+                        color: #fff;
+                        opacity: 0; 
+                        transition: opacity 1s ease-in-out;
+                    }
+                    .fin{
+                        display: none;
+                        display: block;
+                        text-decoration: none;
+                        color: #a90000;
+                        opacity: 0;
+                        transition: opacity 1s ease-in-out;
+                        cursor: default;
+                    }
+                    .texte-visible {
+                        text-align: center;
+                        display: block;
+                        opacity: 1; 
+                    }
                 </style>
             </head>
             <body>
@@ -2138,7 +2150,7 @@ def save9(query_params, cookie):
                         <p>Nombre de caractères :</p><div class="progress-bar"><div class="progress2"></div></div>
                         <p>Temps total :</p><div class="progress-bar"><div class="progress3"></div></div>
                     </div>
-                    <button class="button" onClick='location.href="starttime9"'>Niveau Suivant <svg xmlns="http://www.w3.org/2000/svg" class="svgfleche" class="bi bi-chevron-double-right" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/> <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/> </svg></button>
+        <button class="button" onclick="start()">Terminer <svg xmlns="http://www.w3.org/2000/svg" class="svgfleche" class="bi bi-chevron-double-right" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/> <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/> </svg></button>
                 </div>
                 <canvas id="confetti-canvas"></canvas>
     <div class="message" id="message">
@@ -2146,7 +2158,7 @@ def save9(query_params, cookie):
     <div class="texte-fondu">
     Félicitations pour avoir brillamment achevé l'épreuve de Python du Ozanam CyberQuest ! <br>
     Votre maîtrise rapide et précise de la programmation démontre un talent exceptionnel. Continuez ainsi !<br>
-    <a class='fin' href="../python.php">Terminer</a>
+    <a class='fin' href="python">Terminer</a>
     </div>
 
     <div class="content">
@@ -2203,17 +2215,17 @@ def save9(query_params, cookie):
             if (nombre == 0) {
                 back.style.backgroundColor = "#270013";
                 back2.style.backgroundColor = "#270013";
-                back.style.backgroundImage = "url(../images/piecepythoncasse1.png)";
-                back2.style.backgroundImage = "url(../images/piecepythoncasse1.png)";
+                back.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse1.png)";
+                back2.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse1.png)";
             } else if (nombre == 1) {
-                back.style.backgroundImage = "url(../images/piecepythoncasse2.png)";
-                back2.style.backgroundImage = "url(../images/piecepythoncasse2.png)";
+                back.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse2.png)";
+                back2.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse2.png)";
             } else if (nombre == 2) {
-                back.style.backgroundImage = "url(../images/piecepythoncasse3.png)";
-                back2.style.backgroundImage = "url(../images/piecepythoncasse3.png)";
+                back.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse3.png)";
+                back2.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse3.png)";
             } else if (nombre == 3) {
-                back.style.backgroundImage = "url(../images/piecepythoncasse4.png)";
-                back2.style.backgroundImage = "url(../images/piecepythoncasse4.png)";
+                back.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse4.png)";
+                back2.style.backgroundImage = "url(https://ozanam-cyberquest.fr/images/piecepythoncasse4.png)";
             } else if (nombre == 4) {
                 document.querySelector('.content__coins').classList.add('end');
                 setTimeout(() => {

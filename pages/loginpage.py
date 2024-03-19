@@ -43,12 +43,10 @@ def verification(adresseIP, query_params, cookie):
         print(nom)
 
         if 'ctfId' in cookie:
-            sql = "SELECT * FROM ctfuser WHERE ip = %s"
-            cursor.execute(sql, (adresseIP,))
+            cursor.execute("SELECT * FROM ctfuser WHERE ip = %s", (adresseIP,))
             result = cursor.fetchone()
             if result:
                 if result['ip'] == adresseIP:
-                    if result['nom'] == nom :
                         url = 'homepage?nom=' + result['nom']
                         return url
         else:
