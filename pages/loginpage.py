@@ -38,10 +38,6 @@ def verification(adresseIP, query_params, cookie):
             'FORWARDED_FOR_IP',
             'HTTP_PROXY_CONNECTION'
         ]
-        for header in proxy_headers:
-            if header in os.environ:
-                print("Vous êtes derrière un proxy!")
-                break
 
         nom = query_params.get('nom')[0]
         print(nom)

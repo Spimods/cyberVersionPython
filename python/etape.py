@@ -156,7 +156,7 @@ window.onload = function() {
         }
     }
     function redirect(){
-        window.location.href = "save?code=" + encodeURIComponent(ace.edit("editor").getValue());
+        window.location.href = "saveun?code=" + encodeURIComponent(ace.edit("editor").getValue());
     }
     function restart(){
         editor.setValue(decodeURIComponent(`# Demander à l'utilisateur de saisir un nombre
@@ -492,7 +492,7 @@ window.onload = function() {
         }
     }
     function redirect(){
-        window.location.href = "save2?code=" + encodeURIComponent(ace.edit("editor").getValue());
+        window.location.href = "savedeux?code=" + encodeURIComponent(ace.edit("editor").getValue());
     }
     function restart(){
         editor.setValue(decodeURIComponent(`nombre1 = int(input("Entrez un nombre : "))
@@ -533,8 +533,8 @@ nombre3 = int(input("Entrez un nombre : "))
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/python");
 
-    function runPython(valeur) {
-        return new Promise(function(resolve, reject) {
+function runPython(valeur) {
+    return new Promise(function(resolve, reject) {
         var code = editor.getValue();
         var outputElement = document.getElementById("output");
 
@@ -542,17 +542,16 @@ nombre3 = int(input("Entrez un nombre : "))
         xhr.open("POST", "execute", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
-        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText);
-                var values = response.output.split(`\n`) ; //.map(Number)
+                var values = response.output.split(`\n`);
                 var value = values[values.length - 1];
                 outputElement.innerHTML = "<pre>" + response.output + response.error + "</pre>";
                 resolve(value);
             }
         };
         xhr.send("code=" + encodeURIComponent(`data="""+'""" ${valeur} """`'+"""
-+
+        +
 `\n
 ipos = 0 
 values = []
@@ -569,9 +568,9 @@ def input(val = " " ):
     if ipos < len(values):
         val = values[ipos]
         ipos += 1
-    return val \n` )
-    + encodeURIComponent(code));
-}};
+    return val \n` ) + encodeURIComponent(code));
+    });
+}
 
 function verif() {
     Promise.all([
@@ -668,6 +667,7 @@ function verif() {
         html_content = html_content.replace("{{RESULT1}}", str(result_1))
         html_content = html_content.replace("{{RESULT2}}", str(result_2))
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
+        print(html_content)
         return html_content
     else:
         connexion.close()

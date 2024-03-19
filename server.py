@@ -178,7 +178,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             print("Cookies reçus")
             print(query_params, self.client_address[1])
             html_content = loginpage.verification(self.client_address[0], query_params, cookie_dict)
-            print(html_content)
+            print('html :',html_content)
             if html_content:
                 if len(html_content) == 2:
                     self.send_response(200)
@@ -219,8 +219,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             html_content = tuto.tuto(cookie_dict)
             self.wfile.write(html_content.encode('utf-8'))
 
-        elif self.path.startswith('/save'):
-            print("Chemin correspondant à /save:", "http://localhost:8000" + self.path)
+        elif self.path.startswith('/saveun'):
+            print("Chemin correspondant à /saveun:", "http://localhost:8000" + self.path)
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
@@ -248,6 +248,38 @@ class RequestHandler(BaseHTTPRequestHandler):
             print(query_params, self.client_address[1])
             html_content = save.save(query_params, cookie_dict)
             self.wfile.write(html_content.encode('utf-8'))
+
+        elif self.path.startswith('/savedeux'):
+            print("Chemin correspondant à /savedeux:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = save.save2(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+
+
 
         elif self.path.startswith('/starttime1'):
             print("Chemin correspondant à /starttime1:", "http://localhost:8000" + self.path)
@@ -288,6 +320,152 @@ class RequestHandler(BaseHTTPRequestHandler):
                     </script>
                     """
             self.wfile.write(script_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/starttime3'):
+            print("Chemin correspondant à /starttime3:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape3start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/starttime4'):
+            print("Chemin correspondant à /starttime4:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape4start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/starttime5'):
+            print("Chemin correspondant à /starttime5:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape5start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/starttime6'):
+            print("Chemin correspondant à /starttime6:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape6start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/starttime7'):
+            print("Chemin correspondant à /starttime7:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape7start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+        elif self.path.startswith('/starttime8'):
+            print("Chemin correspondant à /starttime8:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape8start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
+        elif self.path.startswith('/starttime9'):
+            print("Chemin correspondant à /starttime9:", "http://localhost:8000" + self.path)
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            html_content = starttime.etape9start(cookie_dict)
+            script_content = f"""
+                    <script>
+                    window.location.href = '{html_content}';
+                    </script>
+                    """
+            self.wfile.write(script_content.encode('utf-8'))
+
 
         elif self.path.startswith('/etape1'):
             print("Chemin correspondant à /etape1:", "http://localhost:8000" + self.path)
