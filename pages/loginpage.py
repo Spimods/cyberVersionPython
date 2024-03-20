@@ -1,4 +1,4 @@
-import mysql.connector
+import sqlite3
 import os
 import uuid
 import socket
@@ -9,17 +9,8 @@ from flask import request, make_response, Flask
 from werkzeug.wrappers import Request
 
 def verification(adresseIP, query_params, cookie):
-    serveur = "localhost"
-    utilisateur = "root"
-    motDePasse = ""
-    baseDeDonnees = "ctf"
-    connexion = mysql.connector.connect(host=serveur,
-                                        user=utilisateur,
-                                        password=motDePasse,
-                                        database=baseDeDonnees)
-
-    cursor = connexion.cursor(dictionary=True)
-
+    connexion = sqlite3.connect('../database.db')
+    cursor = connexion.cursor()
     try:
         proxy_headers = [
             'HTTP_VIA',
@@ -43,25 +34,25 @@ def verification(adresseIP, query_params, cookie):
         print(nom)
 
         if 'ctfId' in cookie:
-            cursor.execute("SELECT * FROM ctfuser WHERE ip = %s", (adresseIP,))
+            cursor.execute("SELECT * FROM ctfuser WHERE ip = ?", (adresseIP,))
             result = cursor.fetchone()
             if result:
                 if result['ip'] == adresseIP:
-                        url = 'homepage?nom=' + result['nom']
-                        return url
+                    url = 'homepage?nom=' + result['nom']
+                    return url
         else:
             print(f"nouvelle utilisateur nommé {nom}")
             codeAleatoire = str(uuid.uuid4())
             print('7', (str(codeAleatoire), str(adresseIP), str(nom)))
-            sql = "INSERT INTO ctfuser (cookie, ip, nom) VALUES (%s, %s, %s)"
+            sql = "INSERT INTO ctfuser (cookie, ip, nom) VALUES (?, ?, ?)"
             cursor.execute(sql, (codeAleatoire, adresseIP, nom))
             connexion.commit()
             idAutoIncrement = cursor.lastrowid
-            sql = "INSERT INTO timepython (nom, cookie) VALUES (%s, %s)"
+            sql = "INSERT INTO timepython (nom, cookie) VALUES (?, ?)"
             cursor.execute(sql, (str(nom), codeAleatoire))
             connexion.commit()
             idprog = cursor.lastrowid
-            sql = "INSERT INTO python (nom, cookie) VALUES (%s, %s)"
+            sql = "INSERT INTO python (nom, cookie) VALUES (?, ?)"
             cursor.execute(sql, (str(nom), codeAleatoire))
             connexion.commit()
             idpython = cursor.lastrowid

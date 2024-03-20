@@ -15,8 +15,9 @@ def tuto(cookie):
         cursor.execute("SELECT key1 FROM timepython WHERE cookie = %s", (valeurCookie,))
         key1 = cursor.fetchone()[0]
         if key1 is not None:
-            print('redirect_to_timestartetape1()')
-            exit()
+            return """<script>
+            window.location.href = 'starttime1'
+            </script>"""
     else :
         print("pas de cookie")
     html_content = """

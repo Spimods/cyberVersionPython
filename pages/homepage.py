@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
-import mysql.connector
+import sqlite3
 import re
 import http.cookies
 import datetime
-
 
 def totalTime(time_strings):
     total_seconds = 0
@@ -28,7 +27,7 @@ def totalTime(time_strings):
     total_seconds %= 3600
     minutes = total_seconds // 60
     seconds = total_seconds % 60
-    return f"{hours}h{minutes}min{seconds}sec"
+    return f"{hours}h {minutes}min {seconds}sec"
 
 def parseTime(timeString):
     if isinstance(timeString, str):
@@ -41,28 +40,23 @@ def parseTime(timeString):
     return 0
 
 def home(query_params, cookie):
-    if query_params :
+    if query_params:
         nom = query_params.get('nom', [None])[0]
-    else :
+    else:
         nom = cookie['ctfNOM']
 
     cookie = cookie['ctfId']
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+    connection = sqlite3.connect("../database.db")
     cursor = connection.cursor()
 
-    cursor.execute("SELECT finish FROM ctfuser WHERE cookie = %s", (cookie,))
+    cursor.execute("SELECT finish FROM ctfuser WHERE cookie = ?", (cookie,))
     finish = cursor.fetchone()#[0]
     print("Finish:", finish)
 
-    cursor.execute("SELECT flag1, flag2, flag3, nom FROM python WHERE cookie = %s", (cookie, ))
+    cursor.execute("SELECT flag1, flag2, flag3, nom FROM python WHERE cookie = ?", (cookie,))
     flag1, flag2, flag3, nom = cursor.fetchone()
     print("Python flags and times:", flag1, flag2, flag3, nom)
-    cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9 FROM timepython WHERE cookie = %s", (cookie, ))
+    cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9 FROM timepython WHERE cookie = ?", (cookie,))
     time1, time2, time3, time4, time5, time6, time7, time8, time9 = cursor.fetchone()
     print("Python flags and times:", time1, time2, time3, time4, time5, time6, time7, time8, time9)
 
@@ -77,7 +71,6 @@ def home(query_params, cookie):
     print(times)
     total_time = totalTime(times)
     print("Total time:", total_time)
-
     html_content = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>

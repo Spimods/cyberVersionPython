@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 import mysql.connector
 import re
 import http.cookies
+import sqlite3
 
 def totalTime(times):
     totalSeconds = sum(parseTime(time) for time in times if time is not None)
@@ -22,12 +23,7 @@ def parseTime(timeString):
 
 def home(cookie):
     cookie = cookie['ctfId']
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+    connection = sqlite3.connect("../database.db")
     cursor = connection.cursor()
     cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9, nom, key1, key2, key3, key4, key5, key6, key7, key8, key9 FROM timepython WHERE cookie = %s", (cookie,))
     row = cursor.fetchone()

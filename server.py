@@ -1,7 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from pages import css, home, intro, js, font, login, loginpage, homepage, python
-from python import tuto, starttime, etape, save
+from pages import css, home, intro, js, font, login, loginpage, homepage, python, redirect
+from python import tuto, starttime, etape, save, triche
 from http import cookies
 import urllib.parse
 import subprocess
@@ -202,19 +202,13 @@ class RequestHandler(BaseHTTPRequestHandler):
                         c[cookie_name] = cookie_value
                         self.send_header("Set-Cookie", c.output(header=''))
                     self.end_headers()
-                    script_content = f"""
-<script>
-    window.location.href = '{html_content[0]}';
-</script>
-                    """
+                    self.send_response(302)
+                    self.send_header('Location', html_content[0])
+                    self.end_headers()
                 else:
-                    print(html_content)
-                    script_content = f"""
-<script>
-    window.location.href = '{html_content}';
-</script>
-                    """
-                self.wfile.write(script_content.encode('utf-8'))
+                    self.send_response(302)
+                    self.send_header('Location', html_content)
+                    self.end_headers()
 
 
 
@@ -825,6 +819,47 @@ class RequestHandler(BaseHTTPRequestHandler):
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
             html_content = etape.etape9start(cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+
+
+
+        elif self.path.startswith('/triche'):
+            print("Chemin correspondant à /triche:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            query_string = self.path.split('?')[-1]
+            parameters = {}
+            if query_string:
+                pairs = query_string.split('&')
+                for pair in pairs:
+                    key, value = pair.split('=')
+                    if key in parameters:
+                        parameters[key].append(value)
+                    else:
+                        parameters[key] = value
+            parsed_url = urlparse(self.path)
+            query_params = parse_qs(parsed_url.query)
+            print(query_params, self.client_address[0])
+            cookie_string = self.headers.get('Cookie')
+            cookie_dict = {}
+            if cookie_string:
+                c = cookies.SimpleCookie()
+                c.load(cookie_string)
+                for key, morsel in c.items():
+                    cookie_dict[key] = morsel.value
+            print("Cookies reçus")
+            print(query_params, self.client_address[1])
+            html_content = triche.triche(query_params, cookie_dict)
+            self.wfile.write(html_content.encode('utf-8'))
+
+
+        elif self.path.startswith('/redirect'):
+            print("Chemin correspondant à /redirect:", "http://localhost:8000{self.path}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            html_content = redirect.redirect()
             self.wfile.write(html_content.encode('utf-8'))
 
 

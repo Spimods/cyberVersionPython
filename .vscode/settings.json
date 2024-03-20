@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "greg",
+            "database": "${workspaceFolder:cyberVersionPython}/database.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

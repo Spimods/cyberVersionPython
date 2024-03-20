@@ -1,2 +1,3 @@
 pip install requests
 pip install pytz
+pip install mysql-connector-python

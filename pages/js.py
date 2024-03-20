@@ -16416,7 +16416,14 @@ function toggleMenu() {
 def generate_timer_js():
     return """
 window.addEventListener("blur", function () {
-  window.location.href = "triche.php";
+    var partie = window.location.pathname;
+    console.log(partie)
+    partie = partie.replace('/', '');
+    partie.replace(',', '');
+    console.log(partie)
+    partie = partie.replace(new RegExp("(%20|_|-)", "g"), "");
+    lien = 'triche?etape='+partie
+    window.location.href = lien;
 });
 
 document.addEventListener('DOMContentLoaded', function() {
