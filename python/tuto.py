@@ -1,18 +1,9 @@
-import mysql.connector
-import re
-import http.cookies
+def tuto(cookie, connection):
 
-def tuto(cookie):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
     cursor = connection.cursor()
     if 'ctfId' in cookie:
         valeurCookie = cookie['ctfId']
-        cursor.execute("SELECT key1 FROM timepython WHERE cookie = %s", (valeurCookie,))
+        cursor.execute("SELECT key1 FROM timepython WHERE cookie = ?", (valeurCookie,))
         key1 = cursor.fetchone()[0]
         if key1 is not None:
             return """<script>

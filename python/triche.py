@@ -1,17 +1,9 @@
-import mysql.connector
-from mysql.connector import Error
 from datetime import datetime
-import requests
 
-def triche(query_params ,cookie):
+def triche(query_params ,cookie, connexion):
     etape = query_params.get('etape', [''])[0]
     try:
-        connexion = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+
         liste = {
                 "etape1": "key1",
                 "etape2": "key2",
@@ -28,17 +20,17 @@ def triche(query_params ,cookie):
         if 'ctfId' in cookie:
             idcookie = cookie['ctfId']
             nom = cookie['ctfNOM']
-            cursor.execute("INSERT INTO triche (nom, etape, cookie) VALUES (%s, %s, %s)", (nom, etape, idcookie))
+            cursor.execute("INSERT INTO triche (nom, etape, cookie) VALUES (?, ?, ?)", (nom, etape, idcookie))
             connexion.commit()
             cle = liste.get(etape)
-            cursor.execute(f"UPDATE timepython SET {cle} = 1 WHERE cookie = %s", (idcookie,))
+            cursor.execute(f"UPDATE timepython SET {cle} = 1 WHERE cookie = ?", (idcookie,))
             connexion.commit()
             if etape in ["etape1", "etape2", "etape3"]:
-                cursor.execute("UPDATE python SET flag1 = 'triche' WHERE cookie = %s", (idcookie,))
+                cursor.execute("UPDATE python SET flag1 = 'triche' WHERE cookie = ?", (idcookie,))
             elif etape in ["etape4", "etape5", "etape6"]:
-                cursor.execute("UPDATE python SET flag2 = 'triche' WHERE cookie = %s", (idcookie,))
+                cursor.execute("UPDATE python SET flag2 = 'triche' WHERE cookie = ?", (idcookie,))
             elif etape in ["etape7", "etape8", "etape9"]:
-                cursor.execute("UPDATE python SET flag3 = 'triche' WHERE cookie = %s", (idcookie,))
+                cursor.execute("UPDATE python SET flag3 = 'triche' WHERE cookie = ?", (idcookie,))
             connexion.commit()
             print("Données insérées avec succès.")
             html_content = """
@@ -121,11 +113,7 @@ def triche(query_params ,cookie):
 """
         html_content = html_content.replace("{{etape}}", str(etape))
         return html_content
-    except Error as e:
-        print("Erreur lors de la connexion à MySQL :", e)
     finally:
-        if connexion.is_connected():
-            cursor.close()
-            connexion.close()
-            print("Connexion MySQL fermée.")
+        cursor.close()
+        print("Connexion MySQL fermée.")
 

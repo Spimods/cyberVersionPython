@@ -1,24 +1,18 @@
-import mysql.connector
+
 from datetime import datetime
 
-def etape1start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape1start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key1` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key1` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime2';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie1'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -332,28 +326,21 @@ def input(val = " " ):
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
 
 
-def etape2start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape2start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key2` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key2` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime3';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie2'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -670,28 +657,21 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
-def etape3start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape3start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key3` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key3` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'python';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie3'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -1010,31 +990,24 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
 
 
 
 
 
-def etape4start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape4start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key4` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key4` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime5';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie4'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -1357,30 +1330,23 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
 
 
-def etape5start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape5start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key5` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key5` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'python';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie5'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -1697,31 +1663,24 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
 
 
 
-def etape6start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape6start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key6` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key6` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime7';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie6'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -2037,31 +1996,24 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
 
 
 
-def etape7start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape7start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key7` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key7` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime8';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie7'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -2387,30 +2339,23 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
 
 
-def etape8start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape8start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key8` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key8` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'starttime9';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie8'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -2739,31 +2684,24 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     
 
 
 
 
-def etape9start(cookie):
-    connexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ctf"
-    )
+def etape9start(cookie, connexion):
+
     if 'ctfId' in cookie:
         valeur_cookie = cookie['ctfId']
-        requete = connexion.cursor(buffered=True)
-        requete.execute("SELECT `key9` FROM `timepython` WHERE `cookie`= %s", (valeur_cookie,))
+        requete = connexion.cursor()
+        requete.execute("SELECT `key9` FROM `timepython` WHERE `cookie`= ?", (valeur_cookie,))
         resultat = requete.fetchone()
         print(resultat)
         if resultat != (None,):
-            connexion.close()
             return """<script>window.location.href = 'python';</script>"""
         else:
-            requete = connexion.cursor(buffered=True)
+            requete = connexion.cursor()
             requete.execute("SELECT valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 FROM `valeur python` WHERE nom = 'partie9'")
             valeur_1, result_1, valeur_2, result_2, valeur_3, result_3 = requete.fetchone()
             html_content = """<!DOCTYPE html>
@@ -3081,6 +3019,5 @@ function verif() {
         html_content = html_content.replace("{{RESULT3}}", str(result_3))
         return html_content
     else:
-        connexion.close()
         return 'redirect'
     

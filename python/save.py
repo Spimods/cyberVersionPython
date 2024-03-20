@@ -1,20 +1,14 @@
-import mysql.connector
 from datetime import datetime
 import re
 
-def save(query_params, cookie):
+def save(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time1 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time1 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -68,13 +62,13 @@ def save(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time1 = %s, key1 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time1 = ?, key1 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -219,19 +213,14 @@ def save(query_params, cookie):
             html_content = html_content.replace("{{progress_temps}}", str(progress_temps))
             return html_content
 
-def save2(query_params, cookie):
+def save2(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time2 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time2 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -285,13 +274,13 @@ def save2(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time2 = %s, key2 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time2 = ?, key2 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -438,19 +427,14 @@ def save2(query_params, cookie):
 
 
 
-def save3(query_params, cookie):
+def save3(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time3 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time3 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -504,13 +488,13 @@ def save3(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time3 = %s, key3 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time3 = ?, key3 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -656,19 +640,14 @@ def save3(query_params, cookie):
             return html_content
 
 
-def save4(query_params, cookie):
+def save4(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time4 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time4 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -722,13 +701,13 @@ def save4(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time4 = %s, key4 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time4 = ?, key4 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -873,19 +852,14 @@ def save4(query_params, cookie):
             html_content = html_content.replace("{{progress_temps}}", str(progress_temps))
             return html_content
 
-def save5(query_params, cookie):
+def save5(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time5 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time5 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -939,13 +913,13 @@ def save5(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time5 = %s, key5 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time5 = ?, key5 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -1090,19 +1064,14 @@ def save5(query_params, cookie):
             html_content = html_content.replace("{{progress_temps}}", str(progress_temps))
             return html_content
 
-def save6(query_params, cookie):
+def save6(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time6 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time6 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -1156,13 +1125,13 @@ def save6(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time6 = %s, key6 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time6 = ?, key6 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -1307,19 +1276,14 @@ def save6(query_params, cookie):
             html_content = html_content.replace("{{progress_temps}}", str(progress_temps))
             return html_content
 
-def save7(query_params, cookie):
+def save7(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time7 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time7 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -1373,13 +1337,13 @@ def save7(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time7 = %s, key7 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time7 = ?, key7 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -1524,19 +1488,14 @@ def save7(query_params, cookie):
             html_content = html_content.replace("{{progress_temps}}", str(progress_temps))
             return html_content
 
-def save8(query_params, cookie):
+def save8(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     if code:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="ctf"
-        )
+        
         cursor = connection.cursor()
-        cursor.execute("SELECT time8 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time8 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         if result:
             timedebut = result[0]
@@ -1590,13 +1549,13 @@ def save8(query_params, cookie):
                 notetime = 0
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')", (nomcookie, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
-            cursor.execute("UPDATE timepython SET time8 = %s, key8 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time8 = ?, key8 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
             html_content = """<!DOCTYPE html>
             <html lang="fr">
             <head>
@@ -1742,20 +1701,14 @@ def save8(query_params, cookie):
             return html_content
 
 
-def save9(query_params, cookie):
+def save9(query_params, cookie, connection):
     idcookie = cookie['ctfId']
     nomcookie = cookie['ctfNOM']
     code = query_params.get('code', [''])[0]
     nom = cookie['ctfNOM']
     if code:
-        connection = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="",
-                database="ctf"
-            )
         cursor = connection.cursor()
-        cursor.execute("SELECT time9 FROM timepython WHERE cookie = %s", (idcookie,))
+        cursor.execute("SELECT time9 FROM timepython WHERE cookie = ?", (idcookie,))
         result = cursor.fetchone()
         timedebut = result[0] if result else None
 
@@ -1815,11 +1768,11 @@ def save9(query_params, cookie):
             time = f"{heure}-{minute}-{seconde}"
             timeend = f"{heure}h{minute}min{seconde}sec"
 
-            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (%s, %s, %s, %s, %s, %s, %s, 'python')",
+            cursor.execute("INSERT INTO score (nom, note, timetotal, caracteretotal, lignetotal, codecomplet, cookie, etape) VALUES (?, ?, ?, ?, ?, ?, ?, 'python')",
                         (nom, note, time, nombre_de_caracteres, nombre_de_lignes, code, idcookie))
             connection.commit()
 
-            cursor.execute("SELECT time7, time8 FROM timepython WHERE cookie = %s", (idcookie,))
+            cursor.execute("SELECT time7, time8 FROM timepython WHERE cookie = ?", (idcookie,))
             result = cursor.fetchone()
             time1, time2 = result if result else (None, None)
 
@@ -1836,14 +1789,14 @@ def save9(query_params, cookie):
                     min_ -= 60
                     heure += 1
                 time = f"{heure}h {min_}min {sec}sec"
-            progress_caracteres = 100 - nombre_de_caracteres / 4 if (nombre_de_caracteres / 4) < 100 else 4
-            progress_lignes = 100 - nombre_de_lignes * 2 if (nombre_de_lignes * 2) < 100 else 4
-            progress_temps = 100 - notetime * 10
+            progress_caracteres = (100 - nombre_de_caracteres / 4) *2.8 if (nombre_de_caracteres / 4) < 100 else 4
+            progress_lignes = (100 - nombre_de_lignes * 2 ) *2.8 if (nombre_de_lignes * 2) < 100 else 4
+            progress_temps = (100 - notetime * 10 ) *2.8
 
-            cursor.execute("UPDATE python SET time_flag_3 = %s, flag3 = 1 WHERE cookie = %s", (time, idcookie))
+            cursor.execute("UPDATE python SET time_flag_3 = ?, flag3 = 1 WHERE cookie = ?", (time, idcookie))
             connection.commit()
 
-            cursor.execute("UPDATE timepython SET time9 = %s, key9 = 1 WHERE cookie = %s", (timeend, idcookie))
+            cursor.execute("UPDATE timepython SET time9 = ?, key9 = 1 WHERE cookie = ?", (timeend, idcookie))
             connection.commit()
 
         cursor.close()

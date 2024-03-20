@@ -1,7 +1,5 @@
-from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import re
-import http.cookies
 import datetime
 
 def totalTime(time_strings):
@@ -39,14 +37,13 @@ def parseTime(timeString):
             return hours * 3600 + minutes * 60 + seconds
     return 0
 
-def home(query_params, cookie):
+def home(query_params, cookie, connection):
     if query_params:
         nom = query_params.get('nom', [None])[0]
     else:
         nom = cookie['ctfNOM']
 
     cookie = cookie['ctfId']
-    connection = sqlite3.connect("../database.db")
     cursor = connection.cursor()
 
     cursor.execute("SELECT finish FROM ctfuser WHERE cookie = ?", (cookie,))
@@ -61,7 +58,6 @@ def home(query_params, cookie):
     print("Python flags and times:", time1, time2, time3, time4, time5, time6, time7, time8, time9)
 
     flag4 = flag5 = flag6 = flag7 = 1
-    connection.close()
 
     part1 = 1 if (flag1 == 1 and flag2 == 1 and flag3 == 1) else 0
     part2 = 1 if (flag4 == 1 and flag5 == 1 and flag6 == 1) else 0

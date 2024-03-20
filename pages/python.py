@@ -1,7 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
-import mysql.connector
 import re
-import http.cookies
 import sqlite3
 
 def totalTime(times):
@@ -21,11 +18,10 @@ def parseTime(timeString):
             return hours * 3600 + minutes * 60 + seconds
     return 0
 
-def home(cookie):
+def home(cookie, connection):
     cookie = cookie['ctfId']
-    connection = sqlite3.connect("../database.db")
     cursor = connection.cursor()
-    cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9, nom, key1, key2, key3, key4, key5, key6, key7, key8, key9 FROM timepython WHERE cookie = %s", (cookie,))
+    cursor.execute("SELECT time1, time2, time3, time4, time5, time6, time7, time8, time9, nom, key1, key2, key3, key4, key5, key6, key7, key8, key9 FROM timepython WHERE cookie = ?", (cookie,))
     row = cursor.fetchone()
     if row is not None:
         row = [0 if value is None else value for value in row]
@@ -33,7 +29,6 @@ def home(cookie):
     else:
         time1, time2, time3, time4, time5, time6, time7, time8, time9, nom, key1, key2, key3, key4, key5, key6, key7, key8, key9 = [0] * 19  # Toutes les valeurs initialisées à 0
     print("Python flags and times:", time1, time2, time3,time4, time5, time6,time7, time8, time9, nom, key1, key2 , key3, key4, key5, key6, key7, key8, key9)
-    connection.close()
     part1 = 1 if (key1 == 1 and key2 == 1 and key3 == 1) else 0
     part2 = 1 if (key4 == 1 and key5 == 1 and key6 == 1) else 0
     part3 = 1 if (key7 == 1 and key8 == 1 and key9 == 1) else 0

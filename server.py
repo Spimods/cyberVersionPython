@@ -1,12 +1,16 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from urllib.parse import urlparse, parse_qs
 from pages import css, home, intro, js, font, login, loginpage, homepage, python, redirect
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from python import tuto, starttime, etape, save, triche
+from urllib.parse import urlparse, parse_qs
 from http import cookies
 import urllib.parse
 import subprocess
 import tempfile
+import sqlite3
 import json
+
+connexion = sqlite3.connect('database.db')
+
 
 css_paths = {
     '/main.css': css.generate_main_css,
@@ -39,6 +43,7 @@ font_paths = {
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
+        global connexion
         if self.path.startswith('/execute'):
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
@@ -70,6 +75,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'error': 'No Python code provided.'}).encode())
 
     def do_GET(self):
+        global connexion
         print("Requête GET reçue:", "http://localhost:8000" + self.path) 
         if self.path in css_paths:
             print("Chemin correspondant à", self.path)
@@ -142,7 +148,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = homepage.home(query_params, cookie_dict)
+            html_content = homepage.home(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
@@ -160,7 +166,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = python.home(cookie_dict)
+            html_content = python.home(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
@@ -190,20 +196,17 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = loginpage.verification(self.client_address[0], query_params, cookie_dict)
+            html_content = loginpage.verification(self.client_address[0], query_params, cookie_dict, connexion)
             if html_content:
                 if len(html_content) == 2:
-                    self.send_response(200)
-                    self.send_header('Content-type', 'text/html')
+                    self.send_response(302)
+                    self.send_header('Location', html_content[0])
                     print(html_content[1])
                     for cookie_name, cookie_value in html_content[1]:
                         c = cookies.SimpleCookie()
                         print(cookie_name, cookie_value)
                         c[cookie_name] = cookie_value
                         self.send_header("Set-Cookie", c.output(header=''))
-                    self.end_headers()
-                    self.send_response(302)
-                    self.send_header('Location', html_content[0])
                     self.end_headers()
                 else:
                     self.send_response(302)
@@ -224,7 +227,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = tuto.tuto(cookie_dict)
+            html_content = tuto.tuto(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
@@ -257,7 +260,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save(query_params, cookie_dict)
+            html_content = save.save(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/savedeux'):
@@ -287,7 +290,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save2(query_params, cookie_dict)
+            html_content = save.save2(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save3'):
@@ -317,7 +320,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save3(query_params, cookie_dict)
+            html_content = save.save3(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save4'):
@@ -347,7 +350,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save4(query_params, cookie_dict)
+            html_content = save.save4(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save5'):
@@ -377,7 +380,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save5(query_params, cookie_dict)
+            html_content = save.save5(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save6'):
@@ -407,7 +410,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save6(query_params, cookie_dict)
+            html_content = save.save6(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save7'):
@@ -437,7 +440,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save7(query_params, cookie_dict)
+            html_content = save.save7(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save8'):
@@ -467,7 +470,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save8(query_params, cookie_dict)
+            html_content = save.save8(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/save9'):
@@ -497,7 +500,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = save.save9(query_params, cookie_dict)
+            html_content = save.save9(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
@@ -515,7 +518,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape1start(cookie_dict)
+            html_content = starttime.etape1start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -535,7 +538,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape2start(cookie_dict)
+            html_content = starttime.etape2start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -555,7 +558,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape3start(cookie_dict)
+            html_content = starttime.etape3start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -575,7 +578,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape4start(cookie_dict)
+            html_content = starttime.etape4start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -595,7 +598,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape5start(cookie_dict)
+            html_content = starttime.etape5start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -615,7 +618,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape6start(cookie_dict)
+            html_content = starttime.etape6start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -635,7 +638,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape7start(cookie_dict)
+            html_content = starttime.etape7start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -655,7 +658,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape8start(cookie_dict)
+            html_content = starttime.etape8start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -675,7 +678,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = starttime.etape9start(cookie_dict)
+            html_content = starttime.etape9start(cookie_dict, connexion)
             script_content = f"""
                     <script>
                     window.location.href = '{html_content}';
@@ -698,7 +701,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape1start(cookie_dict)
+            html_content = etape.etape1start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape2'):
@@ -713,7 +716,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape2start(cookie_dict)
+            html_content = etape.etape2start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape3'):
@@ -728,7 +731,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape3start(cookie_dict)
+            html_content = etape.etape3start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape4'):
@@ -743,7 +746,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape4start(cookie_dict)
+            html_content = etape.etape4start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape5'):
@@ -758,7 +761,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape5start(cookie_dict)
+            html_content = etape.etape5start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape6'):
@@ -773,7 +776,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape6start(cookie_dict)
+            html_content = etape.etape6start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape7'):
@@ -788,7 +791,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape7start(cookie_dict)
+            html_content = etape.etape7start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape8'):
@@ -803,7 +806,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape8start(cookie_dict)
+            html_content = etape.etape8start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
         elif self.path.startswith('/etape9'):
@@ -818,7 +821,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 c.load(cookie_string)
                 for key, morsel in c.items():
                     cookie_dict[key] = morsel.value
-            html_content = etape.etape9start(cookie_dict)
+            html_content = etape.etape9start(cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
@@ -850,7 +853,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     cookie_dict[key] = morsel.value
             print("Cookies reçus")
             print(query_params, self.client_address[1])
-            html_content = triche.triche(query_params, cookie_dict)
+            html_content = triche.triche(query_params, cookie_dict, connexion)
             self.wfile.write(html_content.encode('utf-8'))
 
 
