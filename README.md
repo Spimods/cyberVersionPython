@@ -44,8 +44,6 @@
 * Suivez ces étapes pour configurer et utiliser votre site web local :
 
 	- Installer les bibliothèques : requests, pytz ainsi que urllib3.
-<br>
-
     ```bash
     pip install requests
     pip install pytz
