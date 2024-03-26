@@ -49,7 +49,7 @@ pip install requests
 pip install pytz
 pip install urllib3
 ```
-    - Exécuter le fichier server.py, puis rendez-vous sur [http://localhost:8000/home](http://localhost:8000/home)
+  - Exécuter le fichier server.py, puis rendez-vous sur [http://localhost:8000/home](http://localhost:8000/home)
 
 - Débogage et dépannage :
 
