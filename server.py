@@ -30,9 +30,6 @@ js_paths = {
     '/menu.js': js.generate_menu_js,
     '/preloader.js': js.generate_preloader_js,
     '/timer.js': js.generate_timer_js,
-    '/timerCSS.js': js.generate_timer_css_js,
-    '/timerHTML.js': js.generate_timer_html_js,
-    '/timerreseaux.js': js.generate_timer_reseaux_js,
     '/script.js': js.scriptjs
 }
 
@@ -116,8 +113,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             html_content = login.generate_login_html()
             self.wfile.write(html_content.encode('utf-8'))
-
-
 
 
         elif self.path.startswith('/homepage'):
