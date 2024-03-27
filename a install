@@ -1,4 +1,0 @@
-pip install requests
-pip install pytz
-pip install urllib3
-
