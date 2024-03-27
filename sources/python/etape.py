@@ -2472,9 +2472,10 @@ def palindrome(s):
         <div id="tooltip">
             <p>Consignes :</p>
             <ul>
-                <li>Écrivez un programme en Python qui demande à l'utilisateur de saisir un nombre.</li>
-                <li>Le programme devrait ensuite déterminer si le nombre est un palindrome.</li>
-                <li>Un palindrome est un nombre qui reste le même lorsqu'on lit ses chiffres de gauche à droite ou de droite à gauche.</li>
+        <li>Créez un programme Python qui demande à l'utilisateur un nombre.</li>
+        <li>Vérifiez ensuite si ce nombre est un palindrome.</li>
+        <li>Un palindrome est une séquence de caractères identique en lisant de gauche à droite ou de droite à gauche.</li>
+        <li>Affichez "{user_input} est un palindrome." si c'est le cas, sinon affichez "{user_input} n'est pas un palindrome."</li>
 
 
             </ul>
