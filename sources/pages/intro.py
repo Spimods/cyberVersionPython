@@ -23,6 +23,61 @@ def generate_page2_html():
         .fade-in.visible {
             opacity: 1;
         }
+        .scrollBtn {
+			border-radius: 0.25rem;
+            position: fixed;
+            z-index: 10000;
+		}
+        .scroll {
+            display: block;
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border: 2px solid #a3a3a3;
+            border-radius: 50%;
+            top: 90%;
+            z-index: 10000;
+        }
+        .scroll span {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            margin-left: -5px;
+            border-left: 2px solid #a3a3a3;
+            border-bottom: 2px solid #a3a3a3;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            animation: fading-arrows 2s infinite;
+            -webkit-animation: fading-arrows 2s infinite;
+            opacity: 0;
+            box-sizing: border-box;
+        }
+            .scroll span:nth-of-type(1) {
+            top: 3px;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+        .scroll span:nth-of-type(2) {
+            top: 9px;
+            -webkit-animation-delay: .25s;
+            animation-delay: .25s;
+        }
+
+        @keyframes fading-arrows {
+            0%   { opacity: 0; }
+            50%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @-webkit-keyframes fading-arrows {
+            0%   { opacity: 0; }
+            50%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
     </style>
 </head>
 <body class="imgloaded">
@@ -53,8 +108,10 @@ def generate_page2_html():
         </nav>
     </div>
 </div>
-<div class="jumbotron bg-transparent mb-0 pt-3 radius-0">
-    <div class="container">
+<div id="scrollbtn" class="scroll" onclick="scrollToBottom()"><span></span><span></span></div>
+
+<div id="container" class="jumbotron bg-transparent mb-0 pt-3 radius-0">
+    <div class="container" >
         <div class="row">
             <div class="col-xl-12">
                 <h1 class="display-1 bold color_white content__title text-center"><span class="color_danger">INSTRUC</span>TIONS<span class="vim-caret">&nbsp;</span></h1>
@@ -111,7 +168,29 @@ def generate_page2_html():
             });
         });
     });
+    var scrollableDiv = document.getElementById('container');
+var btn1 = document.getElementById('scrollbtn');
+
+function scrollToBottom() {
+    var bottomElement = document.documentElement.lastElementChild;
+    bottomElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function checkScrollPosition() {
+    var isAtBottom = (document.documentElement.scrollHeight - document.documentElement.scrollTop - document.documentElement.clientHeight) <= 200;
+    console.log((document.documentElement.scrollHeight - document.documentElement.scrollTop - document.documentElement.clientHeight) <= 200)
+    if (isAtBottom) {
+        btn1.style.display = 'none';
+    } else {
+        btn1.style.display = 'block'; 
+    }
+}
+document.addEventListener('scroll', checkScrollPosition);
+checkScrollPosition();
+
+
 </script>
+
 </body>
 </html>
 

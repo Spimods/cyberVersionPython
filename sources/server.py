@@ -899,5 +899,5 @@ class RequestHandler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     server_address = ('', 8000)
     httpd = HTTPServer(server_address, RequestHandler)
-    print('Server running at http://localhost:8000/')
+    print('Server running at http://localhost:8000/home')
     httpd.serve_forever()
